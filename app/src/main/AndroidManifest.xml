@@ -1,26 +1,52 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools">
+    package="com.example.automationapp">
+
+    <!-- Permissions -->
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
+    <uses-permission android:name="android.permission.BIND_ACCESSIBILITY_SERVICE" />
 
     <application
         android:allowBackup="true"
-        android:dataExtractionRules="@xml/data_extraction_rules"
-        android:fullBackupContent="@xml/backup_rules"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.AutomationApp"
-        tools:targetApi="31">
+        android:theme="@style/Theme.AutomationApp">
+
+        <!-- Main Activity -->
         <activity
             android:name=".MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-    </application>
 
+        <!-- VPN Service -->
+        <service
+            android:name=".PacketMonitorVpnService"
+            android:permission="android.permission.BIND_VPN_SERVICE"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.net.VpnService" />
+            </intent-filter>
+        </service>
+
+        <!-- Accessibility Service -->
+        <service
+            android:name=".AutoClickAccessibilityService"
+            android:label="AutoClick Service"
+            android:permission="android.permission.BIND_ACCESSIBILITY_SERVICE"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.accessibilityservice.AccessibilityService" />
+            </intent-filter>
+            <meta-data
+                android:name="android.accessibilityservice"
+                android:resource="@xml/accessibility_service_config" />
+        </service>
+    </application>
 </manifest>
