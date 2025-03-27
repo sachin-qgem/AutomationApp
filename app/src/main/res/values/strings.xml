@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">AutomationApp</string>
+    <string name="accessibility_service_description">Service to automate clicks for new orders</string>
 </resources>
